@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.example.quizapp.databinding.ActivityMainBinding
 import com.example.quizapp.databinding.ActivityQuizQuestionsBinding
 
@@ -18,6 +19,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     var selected:Int=0
     var change=0;
     var correct=0;
+    var select=0
 
     private var pos: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +35,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     }
 
     private fun setQues() {
+        select=0
 
         pos++
 
@@ -62,6 +65,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     }
 
     fun onPress(v: View){
+        select=1
         if (change==0) {
             if (v.id == 2131231043) {
                 Log.i("Button 1", "clicked")
@@ -117,74 +121,59 @@ class QuizQuestionsActivity : AppCompatActivity() {
     fun sub(v:View)
     {
         val a=binding.button.text.toString()
-        if (a=="Submit")
-        {
-            var ques = MQuestionsList!!.get(pos - 1)
+        if (a=="Submit") {
+            if (select == 1) {
+                var ques = MQuestionsList!!.get(pos - 1)
 
-            if(selected==ques.correctAnswer)
-            {
-                Log.i("result","correct")
-                if (selected==4)
-                {
-                    binding.optionFour.setBackgroundResource(R.drawable.correct)
-                    correct++;
-                }
-                else if (selected==1)
-                {
-                    binding.optionOne.setBackgroundResource(R.drawable.correct)
-                    correct++;
-                }
-                else if (selected==2)
-                {
-                    binding.optionTwo.setBackgroundResource(R.drawable.correct)
-                    correct++;
-                }
-                else if (selected==3)
-                {
-                    binding.optionThree.setBackgroundResource(R.drawable.correct)
-                    correct++;
-                }
+                if (selected == ques.correctAnswer) {
+                    Log.i("result", "correct")
+                    if (selected == 4) {
+                        binding.optionFour.setBackgroundResource(R.drawable.correct)
+                        correct++;
+                    } else if (selected == 1) {
+                        binding.optionOne.setBackgroundResource(R.drawable.correct)
+                        correct++;
+                    } else if (selected == 2) {
+                        binding.optionTwo.setBackgroundResource(R.drawable.correct)
+                        correct++;
+                    } else if (selected == 3) {
+                        binding.optionThree.setBackgroundResource(R.drawable.correct)
+                        correct++;
+                    }
 
+                } else {
+                    Log.i("result", "Incorrect")
+                    if (selected == 4) {
+                        binding.optionFour.setBackgroundResource(R.drawable.incorrect)
+                    } else if (selected == 1) {
+                        binding.optionOne.setBackgroundResource(R.drawable.incorrect)
+                    } else if (selected == 2) {
+                        binding.optionTwo.setBackgroundResource(R.drawable.incorrect)
+                    } else if (selected == 3) {
+                        binding.optionThree.setBackgroundResource(R.drawable.incorrect)
+                    }
+                    if (ques.correctAnswer == 1) {
+                        binding.optionOne.setBackgroundResource(R.drawable.correct)
+                    } else if (ques.correctAnswer == 2) {
+                        binding.optionTwo.setBackgroundResource(R.drawable.correct)
+                    } else if (ques.correctAnswer == 3) {
+                        binding.optionThree.setBackgroundResource(R.drawable.correct)
+                    } else if (ques.correctAnswer == 4) {
+                        binding.optionFour.setBackgroundResource(R.drawable.correct)
+                    }
+
+                }
+                binding.button.text = "NEXT"
+                change = 1
             }
             else
             {
-                Log.i("result","Incorrect")
-                if (selected==4)
-                {
-                    binding.optionFour.setBackgroundResource(R.drawable.incorrect)
-                }
-                else if (selected==1)
-                {
-                    binding.optionOne.setBackgroundResource(R.drawable.incorrect)
-                }
-                else if (selected==2)
-                {
-                    binding.optionTwo.setBackgroundResource(R.drawable.incorrect)
-                }
-                else if (selected==3)
-                {
-                    binding.optionThree.setBackgroundResource(R.drawable.incorrect)
-                }
-                if (ques.correctAnswer==1)
-                {
-                    binding.optionOne.setBackgroundResource(R.drawable.correct)
-                }
-                else if (ques.correctAnswer==2)
-                {
-                    binding.optionTwo.setBackgroundResource(R.drawable.correct)
-                }
-                else if (ques.correctAnswer==3)
-                {
-                    binding.optionThree.setBackgroundResource(R.drawable.correct)
-                }
-                else if (ques.correctAnswer==4)
-                {
-                    binding.optionFour.setBackgroundResource(R.drawable.correct)
-                }
+                val text = "Please select an option"
+                val duration = Toast.LENGTH_SHORT
 
+                val toast = Toast.makeText(applicationContext, text, duration)
+                toast.show()
             }
-            binding.button.text="NEXT"
-            change=1
         }
         else{
             change=0
