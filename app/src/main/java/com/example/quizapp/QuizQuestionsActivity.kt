@@ -1,16 +1,12 @@
 package com.example.quizapp
 
 import android.content.Intent
-import android.graphics.Color.parseColor
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import com.example.quizapp.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.example.quizapp.databinding.ActivityQuizQuestionsBinding
 
 class QuizQuestionsActivity : AppCompatActivity() {
@@ -20,6 +16,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     var change=0;
     var correct=0;
     var select=0;
+    lateinit var namee:String
     private var pos: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +26,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         MQuestionsList = Constants.getQuestions()
         setQues()
-        var name=intent.getStringExtra("name")
-        Log.i("name","${name}")
+        namee= intent.getStringExtra("name").toString()
+        Log.i("name","${namee}")
 
 
     }
@@ -197,6 +194,10 @@ class QuizQuestionsActivity : AppCompatActivity() {
     {
         Log.i("result score","${correct}")
         val intent= Intent(this,ResultActivity::class.java).also { it.putExtra("score",correct) }
+        val bundle = Bundle()
+        bundle.putString("name",namee)
+        bundle.putInt("score",correct)
+        intent.putExtras(bundle)
         startActivity(intent)
         finish()
 

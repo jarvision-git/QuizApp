@@ -1,11 +1,10 @@
 package com.example.quizapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.quizapp.databinding.ActivityMainBinding
-import com.example.quizapp.databinding.ActivityQuizQuestionsBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.example.quizapp.databinding.ActivityResultBinding
+import java.sql.Types.NULL
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
@@ -16,9 +15,22 @@ class ResultActivity : AppCompatActivity() {
         setContentView(view)
 
 
-        val score =intent.getIntExtra("score",0)
-        Log.i("score","${score}")
-        binding.score.text="You scored $score out of 9"
+        val bundle = intent.extras
+        val fname= bundle?.getString("name")
+        val fscore= bundle?.getInt("score")
+        Log.i("score","${fscore}")
+        Log.i("name","${fname}")
+        binding.score.text="You scored $fscore out of 9"
+        if (fscore != null) {
+            if (fscore>5) {
+                binding.msg.text="Congratulations ${fname}!"
+            }
+            else
+            {
+                binding.msg.text="${fname} better luck next time"
+            }
+        }
+
 
     }
 }
