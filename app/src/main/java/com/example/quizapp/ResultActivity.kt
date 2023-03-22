@@ -16,9 +16,8 @@ class ResultActivity : AppCompatActivity() {
         setContentView(view)
 
 
-        val score =intent.getIntExtra("result",0)
-        val total=intent.getIntExtra("correct",0)
-
+        val score =intent.getIntExtra("score",0)
+        Log.i("score","${score}")
         binding.score.text="You scored $score out of 9"
 
     }

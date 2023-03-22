@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         }
             else
         {
-            val intent=Intent(this,QuizQuestionsActivity::class.java)
+            val intent=Intent(this,QuizQuestionsActivity::class.java).also { it.putExtra("name",binding.name.text.toString())}
             startActivity(intent)
             finish()
         }

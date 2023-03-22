@@ -19,8 +19,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     var selected:Int=0
     var change=0;
     var correct=0;
-    var select=0
-
+    var select=0;
     private var pos: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +29,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         MQuestionsList = Constants.getQuestions()
         setQues()
+        var name=intent.getStringExtra("name")
+        Log.i("name","${name}")
 
 
     }
@@ -65,6 +66,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     }
 
     fun onPress(v: View){
+
         select=1
         if (change==0) {
             if (v.id == 2131231043) {
@@ -193,9 +195,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
     fun result()
     {
-        val intent= Intent(this,ResultActivity::class.java)
-        intent.putExtra("score",correct)
-        intent.putExtra("correct",pos)
+        Log.i("result score","${correct}")
+        val intent= Intent(this,ResultActivity::class.java).also { it.putExtra("score",correct) }
         startActivity(intent)
         finish()
 
